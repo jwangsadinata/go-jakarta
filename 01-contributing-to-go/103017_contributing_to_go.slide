@@ -1,0 +1,106 @@
+How To Contribute To Go
+30 October 2017
+Tags: go, golang, gojakarta, contribution
+
+Jason Wangsadinata
+Software Engineer, Traveloka
+jwangsadinata@gmail.com
+http://jwangsadinata.com
+
+* First and foremost...
+- A very big thank you to [[https://www.happyfresh.id][HappyFresh]] for hosting this event!
+- Also, thank you to Ken and Dimas for motivating and allowing me to speak at this event!
+- You guys should check out [[https://www.meetup.com/GoJakarta][GoJakarta]] if you're not yet a member!
+
+* A little bit about myself
+
+* So what is Go?
+- Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+- Go is a compiled programming language in the tradition of C and C++, with static typing, garbage collection, and unique language features enabling concurrent programming
+- Example code:
+	func main() {
+		fmt.Println("Hello, 世界")
+	}
+
+* Contribution Guidelines
+
+* Gerrit Registration and Google CLA
+- Go project uses [[https://www.gerritcodereview.com/][Gerrit]] for code review
+- You need a Google account for Gerrit authentication 
+.link https://go.googlesource.com
+- Agree to a Google Contributor License Agreement
+.link https://cla.developers.google.com/about/google-individual
+
+* git-codereview setup
+- Install `git-codereview` tool to simplify the contribution process
+	$ go get -u golang.org/x/review/git-codereview
+- Set up aliases for its commands in your Git configuration file (typically `~/.gitconfig`)
+	[alias]
+		change = codereview change
+		gofmt = codereview gofmt
+		mail = codereview mail
+		pending = codereview pending
+		submit = codereview submit
+		sync = codereview sync
+
+* Finding an issue to work on
+- At this point, you should be ready to begin contributing to the Go project
+- Checking for issues
+.link https://github.com/golang/go/issues
+- Repositories under the Go project umbrella
+.link https://go.googlesource.com
+- Cloning a repository
+	$ git clone https://go.googlesource.com/go	
+
+* Making a contribution
+- It is a good idea to sync your local repository with the upstream repository
+	$ git sync
+- Begin working on your change
+- Don't forget to write tests for your change
+- Once your change is complete, run tests for the entire tree to ensure your changes don't break other packages/programs
+	$ cd go/src
+	$ ./all.bash
+
+* Submitting your contribution
+- Use typical git commands like `git` `add` or `git` `rm` to stage your changes
+- When ready to submit, think of a meaningful branch name and run:
+	$ git change <branch>
+- If you wish to make further changes, use normal `git` commands and just run `git` `change`
+- Finally, submit your change to Gerrit by running:
+	$ git mail
+
+* Gerrit code review
+- Once you submit your changes, it can be reviewed by a member of the Go team and others in the community 
+- `Run-Trybot` `+1` -- This starts an automated testing process which builds your change against the entire Go tree using a multitude of different operating systems and CPU architectures.
+- A member from Go team will comment with `Code-Review` label, which can be understood as this:
+	-2: I am strongly against this change and will almost certainly not be persuaded otherwise
+	-1: I disagree with this change, but could be persuaded otherwise
+	+1: Looks good to me, but someone else must approve
+	+2: Looks good to me, and is ready for submission once the TryBots indicate a change is OK
+
+* Demo
+
+* Things I learned
+- Go is a nice hybrid of the popular programming language like Python, Java, C++ and Ruby
+- Go makes writing concurrent programs a lot easier and less prone to errors
+- Go certainly lowers the barrier for joining a large OSS project
+- Go has a very welcoming community 
+- There are so many resources for you to start diving into the language
+
+* Words of advice
+- Get your hands dirty 
+- Don't be afraid to make mistakes
+- Learning should be fun
+- Join a community
+*** Monthly GoJakarta meetup: [[https://meetup.com/GoJakarta][meetup.com/GoJakarta]]
+*** Join the Go slack channel: [[https://gophers.slack.com][gophers.slack.com]]
+
+* Resources (for learning and contributing)
+- A Tour of Go:
+.link https://tour.golang.org/
+- The Go Blog:
+.link https://blog.golang.org/
+- Contribution Guide:
+.link https://golang.org/doc/contribute.html
+
+* Questions?
