@@ -1,0 +1,115 @@
+Desktop Apps in Go
+28 August 2018
+Tags: desktop, golang, go, gui, glfw, opengl, pixel
+
+Jason Wangsadinata
+Systems Developer, Brankas
+jason@brank.as
+https://jwangsadinata.github.io
+
+* First and foremost...
+- A very big thank you to [[https://kudo.co.id/][Kudo]] for hosting this event!
+- Thank you to the GoJakarta organizers for allowing me to speak at this event!
+- Check out [[https://www.meetup.com/GoJakarta][GoJakarta]] if you're not yet a member!
+
+* Quick Announcements
+- Go 1.11 is now out (as per last Friday), so consider upgrading to it!
+- Release includes preliminary support for [[https://golang.org/doc/go1.11#modules][modules]] and experimental port to [[https://golang.org/doc/go1.11#wasm][WebAssembly]].
+
+* A little bit about myself
+
+* Desktop Apps
+- There are so many ways in creating desktop applications. This talk is by no means an exhaustive list of doing all of them.
+- Desktop applications <-> Graphical User Interfaces (GUI)
+- Allows interaction with user inputs
+
+* Things you want from a desktop apps
+- Window and Visual Indicators
+- Event Handling
+
+* Popular GUI Tools
+- *Qt* - Cross platform application framework and widget toolkit for creating GUI.
+.link https://www.qt.io
+*** Examples: Skype, Virtualbox, VLC Media Player
+
+- *GTK+* - Widget toolkit for creating GUI.
+.link https://www.gtk.org
+*** Examples: Chromium, GNOME, Inkscape
+
+- *Electron* - Desktop GUIs built with web technologies.
+.link https://electronjs.org
+*** Examples: Atom, Postman, Slack
+
+- Many more ([[https://github.com/golang-ui/nuklear][nuklear]], [[https://github.com/zserge/webview][webview]])
+
+* OpenGL
+- OpenGL (Open Graphics Library) is a cross-language, cross-platform API for rendering 2D and 3D graphics.
+- These API is used to interact with the GPU (Graphics Processing Unit).
+- OpenGL has been around for more than 20 years (OpenGL 1.0 was released in 1992, OpenGL 1.1 was released in 1997, OpenGL 4.6 was just released in July of last year)
+- Some examples of OpenGL programs are Adobe Photoshop and Autodesk AutoCAD.
+
+* GLFW
+- Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop.
+- Newer alternative for producing an OpenGL-capable window.
+- Provide simple API for creating windows, contexts and surfaces, receiving inputs and events.
+- Written in C, but there are Go bindings available.
+
+* Libraries in Golang that uses OpenGL/GLFW under the hood
+- *Go-GLFW* - Go bindings for GLFW 3 
+.link https://github.com/go-gl/glfw
+- *Pixel* - A hand-crafted 2D game library in Go
+.link https://github.com/faiface/pixel
+- *Ebiten* - Dead simple 2D game library in Go 
+.link https://github.com/hajimehoshi/ebiten
+
+* Getting Started (part 1)
+- go-glfw
+    runtime.LockOSThread()
+
+    if err := glfw.Init(); err != nil {  
+        panic(fmt.Errorf("could not initialize glfw: %v", err)) 
+    }
+    window, _ := glfw.CreateWindow(640, 480, "Testing", nil, nil)
+    window.MakeContextCurrent()
+    
+    for !window.ShouldClose() {
+        // Do OpenGL stuff...
+        window.SwapBuffers()
+        glfw.PollEvents()
+    }
+
+* Getting Started (part 2)
+- Pixel
+    func run() {
+        cfg := pixelgl.WindowConfig{
+            Title: "Testing",
+            Bounds: pixel.R(0, 0, 640, 480),
+        }
+        win, _ := pixelgl.NewWindow(cfg) 
+
+        for !win.Closed() {
+            // Do stuff here
+            win.Update()
+        }
+    }
+
+    func main() {
+        pixelgl.Run(run)
+    }
+    
+* Demo - Simple Window Creation
+.link demo1.go
+
+* Demo - Handling Inputs
+.link https://github.com/faiface/pixel/tree/master/examples/community/sudoku
+.link https://github.com/jwangsadinata/go-sudoku
+
+* Some Facts and Thoughts
+- As per MacOS 10.14 Mojave, OpenGL is unfortunately being deprecated for macOS. This is done in favor of the Apple's rendering technology, Metal 2.
+- If you are thinking of creating some simple GUIs, or simple games, there are several great tools and libraries written in Go for that.
+- However, in my opinion the GUI capabilities are still quite limited. Especially, building desktop application for cross-platform is still quite a challenge.
+- There are some libraries (like qt bindings for go or go-gtk) that tie to various toolkits via cgo or other mechanisms, but probably the best way for a graphical user interface in go, is still through an html and browser.
+
+* Closing Remarks
+
+* Questions? 
